@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   db:
+    container_name: mysql
     image: mysql:8.0
     environment:
       - MYSQL_DATABASE=sportsstats
@@ -10,3 +11,14 @@ services:
       - '3306:3306'
     volumes:
       - ${MQYSQL_FILE}:/var/lib/mysql
+
+  jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins:lts
+    privileged: true
+    user: root
+    ports:
+      - '8080:8080'
+      - '50000:50000'
+    volumes:
+      - ${JENKINS_FILES}:/var/jenkins_home
